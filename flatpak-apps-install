@@ -1,0 +1,256 @@
+#!/bin/bash
+
+##Main Menu Function##
+menu () { while true
+do
+echo "a: Flatpak Install *Arch Only*"
+echo "1: Flatpak Install *Ubuntu Bases*"
+echo "b: Add Flatpak Remote *All Bases*"
+echo "c: Blender Flatpak Install"
+echo "d: Cherrytree Flatpak Install" 
+echo "e: ExFalso Flatpak Install"
+echo "f: FileZilla Flatpak Install"
+echo "g: Firefox Flatpak Install"
+echo "h: Flatseal Flatpak Install"
+echo "i: Franz Flatpak Install"
+echo "j: Gnome Characters Flatpak Install"
+echo "k: Gimp Flatpak Install"
+echo "l: Handbrake Flatpak Install"
+echo "m: Kdenlive Flatpak Install"
+echo "n: LBRY Flatpak Install"
+echo "o: LibreOffice Flatpak Install"
+echo "p: OBS Studio Flatpak Install"
+echo "q: Signal Flatpak Install"
+echo "r: Telegram Flatpak Install"
+echo "s: Thunderbird Flatpak Install"
+echo "t: Gnome To Do Flatpak Install"
+echo "u: VLC Flatpak Install"
+echo "v: Warpinator Flatpak Install"
+echo "w: Zoom Flatpak Install"
+echo "x: Exit"
+read -p "Please Enter Your Choice: " number
+##case is inspecting the number selected##Number is a variable##
+case $number in
+	a) flatinstar;;
+	1) flatinstub;;
+	b) flatremote;;
+	c) blender;;
+	d) cherrytree;;
+	e) exfalso;;
+	f) filezilla;;
+	g) firefox;;
+	h) flatseal;;
+	i) franz;;
+	j) gnomecharacter;;
+	k) gimp;;
+	l) handbrake;;
+	m) kdenlive;;
+	n) lbry;;
+	o) libreoffice;;
+	p) obsstudio;;
+	q) signal;;
+	r) telegram;;
+	s) thunderbird;;
+	t) todo;;
+	u) vlc;;
+	v) warpinator;;
+	w) zoom;;
+	x) exit;;
+#
+esac
+done
+}
+#
+##a:Flatpak Install *Arch Linux*##
+flatinstar() {
+sudo pacman -S flatpak
+echo "Please Restart To Complete Setup"
+sleep 5
+clear
+}
+#
+##1:Flatpak Install *Ubuntu Bases*##
+flatinstub() {
+sudo apt install flatpak
+sudo apt install gnome-software-plugin-flatpak
+echo "Please Restart To Complete Setup"
+sleep 5
+clear
+}
+##b:Add Flatpak Remote *All Bases*##
+flatremote() {
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+echo "Please Logout To Complete Flatpak Remote"
+sleep 5
+clear
+}
+#
+##c:Flatpak Install of Blender##
+blender() {
+flatpak install flathub org.blender.Blender
+echo "Please Logout for Blender to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##d:Flatpak Install of Cherrytree##
+cherrytree() {
+flatpak install flathub com.giuspen.cherrytree
+echo "Please Logout for Cherrytree to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##e:Flatpak Install of ExFalso##
+exfalso() {
+flatpak install flathub io.github.quodlibet.ExFalso
+echo "Please Logout for ExFalso to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##f:Flatpak Install of FileZilla##
+filezilla() {
+flatpak install flathub org.filezillaproject.Filezilla
+echo "Please Logout for FileZilla to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##g:Flatpak Install of Firefox##
+firefox() {
+flatpak install flathub org.mozilla.firefox
+echo "Please Logout for Firefox to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##h:Flatpak Install of Flatseal##
+flatseal() {
+flatpak install com.github.tchx84.Flatseal
+echo "Please Logout for Flatseal to Appear in the Menu"
+sleep 5
+clear
+}
+##i:Flatpak Install of Franz##
+franz() {
+flatpak install com.meetfranz.Franz
+echo "Please Logout for Franz to Appear in the Menu"
+sleep 5
+clear
+}
+##j:Flatpak Install of Gnome Characters##
+gnomecharacter() {
+flatpak install org.gnome.Characters
+echo "Please Logout for Gnome Characters to Appear in the Menu"
+sleep 5
+clear
+}
+##k:Flatpak Install of Gimp##
+gimp() {
+flatpak install org.gimp.Gimp
+echo "Please Logout for Gimp to Appear in the Menu"
+sleep 5
+clear
+}
+##l:Flatpak Install of Handbrake##
+handbrake() {
+flatpak install fr.handbrake.ghb
+echo "Please Logout for Handbrake to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##m:Flatpak Install of Kdenlive##
+kdenlive() {
+flatpak install flathub org.kde.kdenlive
+echo "Please Logout for Kdenlive to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##n:Flatpak Install of LBRY##
+lbry() {
+flatpak install flathub io.lbry.lbry-app
+echo "Please Logout for LBRY to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##o:Flatpak Install of LibreOffice##
+libreoffice() {
+flatpak install flathub org.libreoffice.LibreOffice
+echo "Please Logout for LibreOffice to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##p:Flatpak Install of OBS Studio##
+obsstudio() {
+flatpak install com.obsproject.Studio
+echo "Please Logout for OBS Studio to Appear in the Menu"
+sleep 5
+clear
+}
+##q:Flatpak Install of Signal##
+signal() {
+flatpak install org.signal.Signal
+echo "Please Logout for Signal to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##r:Flatpak Install of Telegram##
+telegram() {
+flatpak install org.telegram.desktop
+echo "Please Logout for Telegram to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##s:Flatpak Install of Thunderbird##
+thunderbird() {
+flatpak install flathub org.mozilla.Thunderbird
+echo "Please Logout for Thunderbird to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##t:Flatpak Install of Gnome To Do##
+todo() {
+flatpak install flathub org.gnome.Todo
+echo "Please Logout for To Do to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##u:Flatpak Install of VLC##
+vlc() {
+flatpak install org.videolan.VLC
+echo "Please Logout for VLC to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##v:Flatpak Install of Warpinator##
+warpinator() {
+flatpak install org.x.Warpinator
+echo "Please Logout for Warpinator to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##w:Flatpak Install of Zoom##
+zoom() {
+flatpak install us.zoom.Zoom
+echo "Please Logout for Zoom to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##Needed To Run The Main Menu Function##
+menu
+
+
+
+

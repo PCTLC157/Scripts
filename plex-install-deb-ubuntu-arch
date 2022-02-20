@@ -1,0 +1,203 @@
+#!/bin/bash
+
+##This script is for Debian 11 Bullseye and Ubuntu 20.04 versions and higher##
+
+##Deepin is based on Debian##
+
+##Franz Flatpak I have used for emergency use of Messenger in case I have missplaced or lost my Android Phone##
+##Franz Flatpak Install - flatpak install flathub com.meetfranz.Franz##
+##Franz Flatpak Uninstall - flatpak uninstall flathub com.meetfranz.Franz##
+##When checking Plex Server Status press q to Quit/Exit##
+
+##Main Menu Function##
+menu () { while true
+do
+echo "***********************************************************"
+echo "1: Install Flatpak Support Debian/Ubuntu 20.04+"
+echo "***********************************************************"
+echo "2: Install Flatpak Support Arch"
+echo "***********************************************************"
+echo "a: Plex Media Server Install Arch"
+echo "b: Enable Plex Media Server Arch" 
+echo "c: Start Plex Media Server Arch"
+echo "d: Check Plex Server Status Arch (q) to Quit"
+echo "e: Disable Plex Server Arch"
+echo "f: Stop Plex Server Arch"
+echo "***********************************************************"
+echo "g: Install Plex Media Player Arch"
+echo "***********************************************************"
+echo "h: Plex Media Server Install Debian/Ubuntu"
+echo "i: Enable Plex Media Server Debian/Ubuntu"
+echo "j: Start Plex Server Debian/Ubuntu"
+echo "k: Check Plex Server Status Debian/Ubuntu (q) to Quit"
+echo "l: Disable Plex Server Debian/Ubuntu"
+echo "m: Stop Plex Server Debian/Ubuntu"
+echo "**********************************************************"
+echo "n: Install Plex Media Player (Flatpak)"
+echo "**********************************************************"
+echo "x: Exit"
+read -p "Please Enter Your Choice: " number
+##case is inspecting the number selected##Number is a variable##
+case $number in
+     1) flatinstdu;;
+     2) flatinstar;;
+        a) plexservar;;
+	b) enableplexar;;
+	c) startplexar;;
+	d) plexstatusar;;
+	e) disableplexservar;;
+	f) stopplexservar;;
+	g) plexplayerar;;
+        h) plexservdu;;
+	i) enableplexdu;;
+	j) startplexdu;;
+	k) plexstatusdu;;
+	l) disableplexservdu;;
+	m) stopplexservdu;;
+	n) plexplayer;;
+	x) exit;;
+#
+esac
+done
+}
+#
+##1:Install Flatpak Support For Debian##
+flatinstdu() {
+sudo apt update && sudo apt upgrade
+sudo apt install flatpak
+sudo apt install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+clear
+echo "Please Restart Your System To Complete Setup"
+sleep 5
+clear
+}
+#
+##2:Install Flatpak Support For *Arch Linux*##
+flatinstar() {
+sudo pacman -S flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+echo "Please Restart To Complete Setup"
+sleep 5
+clear
+}
+#
+##a:Plex Media Server Install Arch##
+plexservar() {
+sudo pacman -Syu
+trizen -S plex-media-server
+clear
+echo "Run n: To Enable Plex Server"
+sleep 5
+clear
+}
+##b:Enable Plex Media Server Arch##
+enableplexar() {
+systemctl enable plexmediaserver.service
+echo "Run o: To Start Plex Server"
+sleep 5
+clear
+}
+#
+##c:Start Plex Media Server Arch##
+startplexar() {
+systemctl start plexmediaserver.service
+echo "Run p: To Check Plex Server Status"
+sleep 5
+clear
+}
+#
+##d:Check Status of Plex Media Server Arch##
+plexstatusar() {
+systemctl status plexmediaserver
+clear
+}
+#
+##e:Disable Plex Media Server Arch##
+disableplexservar() {
+systemctl disable plexmediaserver.service
+clear
+}
+#
+##f:Stop Plex Media Server Arch##
+stopplexservar() {
+systemctl stop plexmediaserver.service
+echo "Run p: To Check Plex Server Status"
+sleep 5
+clear
+}
+#
+##g:Install Plex Media Player Arch##
+plexplayerar() {
+sudo pacman -Syu
+trizen -S plex-media-player
+echo "You May Have To Logout for Plex Media Player to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##h:Plex Media Server Install Debian/Ubuntu 20.04+##
+plexservdu() {
+sudo apt update && sudo apt upgrade
+sudo apt install apt-transport-https curl
+curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
+echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
+sudo apt update
+sudo apt install plexmediaserver
+clear
+echo "Run p: To Enable Plex Server"
+sleep 5
+clear
+}
+#
+##i:Enable Plex Media Server Debian/Ubuntu##
+enableplexdu() {
+systemctl enable plexmediaserver
+echo "Run j: To Start Plex Server"
+sleep 5
+clear
+}
+#
+##j:Start Plex Media Server Debian/Ubuntu##
+startplexdu() {
+systemctl start plexmediaserver
+echo "Run k: To Check Plex Server Status"
+sleep 5
+clear
+}
+#
+##k:Check Status of Plex Media Server Debian/Ubuntu##
+plexstatusdu() {
+systemctl status plexmediaserver
+clear
+}
+#
+##l:Disable Plex Media Server Debian/Ubuntu##
+disableplexservdu() {
+systemctl disable plexmediaserver
+clear
+}
+#
+##m:Stop Plex Media Server Debian/Ubuntu##
+stopplexservdu() {
+systemctl stop plexmediaserver
+echo "Run r: To Check Plex Server Status"
+sleep 5
+clear
+}
+#
+##n:Install Plex Media Player Flatpak##
+plexplayer() {
+flatpak remote-add --if-not-exists plexmediaplayer https://flatpak.knapsu.eu/plex-media-player.flatpakrepo
+flatpak install tv.plex.PlexMediaPlayer 
+echo "You May Have To Logout for Plex to Appear in the Menu"
+sleep 5
+clear
+}
+#
+##Needed To Run The Main Menu Function##
+menu
+
+
+
+

@@ -1,0 +1,393 @@
+#!/bin/bash
+
+##AUTO MOUNT DATA DRIVE BEFORE CHANGING PERMISSIONS##
+
+##Main Menu Function##
+menu () { while true
+do
+echo "                         Cols Admin"
+echo "***************************************************************"
+echo "                 **Update the System First**"
+echo "***************************************************************"
+echo "1: Update Arch Mirrorlist"
+echo "2: Update the System"
+echo "a: Auto Mount Data Drive"
+echo "b: Change Owner Permissions On Data Drive" 
+echo "c: Remove Home Folders Ubuntu"
+echo "3: Remove Home Folders Arch"
+echo "d: Create Links From Data Drive to Home"
+echo "e: Create Links For Other PCs or VBox"
+echo "f: Copy All Icons From Data Drive"
+echo "g: Copy All Themes From Data Drive"
+echo "h: Download Icons From Github Ubuntu"
+echo "4: Download Icons From Github Arch"
+echo "i: Download Themes From Github Ubuntu"
+echo "5: Download Themes From Github Arch"
+echo "***************************************************************"
+echo "          Open Web Browsers First Before Creating Links"
+echo "***************************************************************"
+echo "j: Create Firefox Link From Data Drive"
+echo "k: Create Thunderbird Link From Data Drive (Sign In First)"
+echo "l: Install Google Chrome (Ubuntu Base)"
+echo "m: Create Google Chrome Link From Data Drive"
+echo "**************************************************************"
+echo "          Trizen Is Already Installed on PCTLC-EZarch"
+echo "**************************************************************"
+echo "n: Install Trizen AUR Support (Installed on PCTLC-Ezarch)"
+echo "o: Install Google Chrome - (AUR)"
+echo "p: Install Popsicle (USB-Flasher) (AUR) Arch Git"
+echo "q: Install Virtualbox Arch (dkms)"
+echo "r: Virtualbox USB Support (Host Machine)"
+echo "s: Virtualbox Shared Folder Support (Guest Machine)"
+echo "t: Virtualbox Extension Pack Install 6.1.32 (wget)"
+echo "u: Install Youtube-dl (wget)"
+echo "v: Install WebApp Manager (AUR) (From Linux Mint)"
+echo "w: Install Free File Sync (AUR)"
+echo "x: Exit"
+read -p "Please Enter Your Choice: " number
+##case is inspecting the number selected##Number is a variable##
+case $number in
+	1) runreflector;;
+	2) update;;
+	a) automount;;
+	b) changeowner;;
+	c) rmhomefold;;
+	3) rmhomefolda;;
+	d) createlink;;
+	e) linkpcorvbox;;
+	f) icons;;
+	g) themes;;
+	h) icongit;;
+	4) icongita;;
+	i) themegit;;
+	5) themegita;;
+	j) firefox;;
+	k) thunderbird;;
+	l) chromeinstall;;
+	m) chromelink;;
+	n) trizeninstall;;
+	o) googlechrome;;
+	p) popsicle;;
+	q) virtualbox;;
+	r) vboxusb;;
+	s) vboxsf;;
+	t) vboxext;;
+	u) youtubedl;;
+	v) webapp;;
+	w) freefilesync;;
+	x) exit;;
+#
+esac
+done
+}
+#
+##1:Update the Mirrorlist using Reflector##
+runreflector() {
+  clear
+  reflector --latest 10 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+  clear
+  echo -e "\n"
+  echo "Mirrorlist regenerated"
+  sleep 2
+  clear
+}
+#
+##2:Update the Arch System##
+update() {
+sudo pacman -Syu
+echo "System Updated"
+sleep 2
+clear
+}
+#
+##a:Function to add command to /etc/fsatb to Auto Mount Data Drive##
+automount() {
+sudo sh -c "echo '/dev/nvme0n1p1 /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd auto nosuid,nodev,nofail,x-gvfs-show 0 0' >> /etc/fstab"
+clear
+echo "Please Exit The Menu And Reboot Before You Continue"
+sleep 5
+clear
+}
+#
+##b:Function to Change Owner Permissions on Data Drive##
+changeowner() {
+sudo chown -R $USER:$USER /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd
+clear
+}
+#
+##c:Function to Remove Home Folders Ubuntu/Debian Base##
+rmhomefold() {
+sudo apt install trash-cli
+trash -r ~/Documents/ ~/Downloads/ ~/Music/ ~/Pictures/ ~/Videos/ ~/.local/share/evolution/
+xdg-user-dirs-update --force
+clear
+}
+#
+##3:Function to Remove Home Folders Arch Base##
+rmhomefolda() {
+sudo pacman -S trash-cli
+trash -r ~/Documents/ ~/Downloads/ ~/Music/ ~/Pictures/ ~/Videos/ ~/.local/share/evolution/
+xdg-user-dirs-update --force
+clear
+}
+#
+##d:Function to Create Links from Data Drive to Home Folders##
+createlink() {
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Documents ~/Documents
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads ~/Downloads
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Music ~/Music
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Pictures ~/Pictures
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Videos ~/Videos
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/evolution ~/.local/share/evolution
+clear
+}
+#
+##e:Function to Create Links for /mnt/placeUUIDinhere **Used for Other Computers and Virtualbox**##
+linkpcorvbox() {
+#ln -s /mnt/placeUUIDinhere/Documents ~/Documents
+#ln -s /mnt/placeUUIDinhere/Downloads ~/Downloads
+#ln -s /mnt/placeUUIDinhere/Music ~/Music
+#ln -s /mnt/placeUUIDinhere/Pictures ~/Pictures
+#ln -s /mnt/placeUUIDinhere/Videos ~/Videos
+clear
+}
+#
+##f:Copy DamaDamas, Papirus, Wow64 & We10X Icons From Data Drive##
+icons() {
+mkdir ~/.icons
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/DamaDamas-icon-theme-0.7 ~/.icons/DamaDamas-icon-theme-0.7
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/ePapirus ~/.icons/ePapirus
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/Papirus ~/.icons/Papirus
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/Papirus-Dark ~/.icons/Papirus-Dark
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/Papirus-Light ~/.icons/papirus-Light
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/Windows-Style-Icons/We10X-Icon-Theme/We10X-special ~/.icons/We10X-special
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/Windows-Style-Icons/We10X-Icon-Theme/We10X-special-dark ~/.icons/We10X-special-dark
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/Windows-Style-Icons/Wow64-Icon-Theme-28-11-2021/wow64 ~/.icons/wow64
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Icons/Windows-Style-Icons/Wow64-Icon-Theme-28-11-2021/wow64-Light ~/.icons/wow64-Light
+clear
+}
+#
+##g:Copy Qogir Themes From Data Drive##
+themes() {
+mkdir ~/.themes
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Themes/Qogir-win-dark ~/.themes/Qogir-win-dark
+cp -r /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/Downloads/Apps/Themes/Qogir-dark ~/.themes/Qogir-dark
+clear
+}
+#
+#h:Download DamaDamas, Papirus, Wow64 & We10X Icons From Github & Extract into .icons Ubuntu/Debian#
+icongit() {
+sudo apt install git
+mkdir ~/.icons
+cd ~/.icons
+git clone https://github.com/PCTLC157/Icons.git
+cd ~/.icons/Icons
+tar -xf papirus-icon-theme-20210501.tar.xz
+tar -xf We10X-special-main.tar.xz
+tar -xf wow64-icon-theme.tar.xz
+unzip -q DamaDamas-icon-theme-0.7.zip
+mv DamaDamas-icon-theme-0.7 ~/.icons
+mv ePapirus ~/.icons
+mv Papirus ~/.icons
+mv Papirus-Dark ~/.icons
+mv Papirus-Light ~/.icons
+mv We10X-special ~/.icons
+mv We10X-special-dark ~/.icons
+mv wow64 ~/.icons
+mv wow64-Light ~/.icons
+clear
+}
+#
+#4:Download DamaDamas, Papirus, Wow64 & We10X Icons From Github & Extract into .icons Arch#
+icongita() {
+sudo pacman -S git
+mkdir ~/.icons
+cd ~/.icons
+git clone https://github.com/PCTLC157/Icons.git
+cd ~/.icons/Icons
+tar -xf papirus-icon-theme-20210501.tar.xz
+tar -xf We10X-special-main.tar.xz
+tar -xf wow64-icon-theme.tar.xz
+unzip -q DamaDamas-icon-theme-0.7.zip
+mv DamaDamas-icon-theme-0.7 ~/.icons
+mv ePapirus ~/.icons
+mv Papirus ~/.icons
+mv Papirus-Dark ~/.icons
+mv Papirus-Light ~/.icons
+mv We10X-special ~/.icons
+mv We10X-special-dark ~/.icons
+mv wow64 ~/.icons
+mv wow64-Light ~/.icons
+#
+##Download DamaDamas & Papirus Icons From Google Drive & Extract into .icons##
+#wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1bwSyX799MVnAMQfYnoqYB997ILaYvepP' -O papirus-icon-theme-20210501.tar.xz
+#wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1miy9UIh_CP6PW9BabFnm5XlLEIo8aIaP' -O DamaDamas-icon-theme-0.7.zip
+clear
+}
+#
+##i:Download Qogir Win Dark & Qogir Dark Themes From Github & Extract into .themes Ubuntu/Debian#
+themegit() {
+sudo apt install git
+mkdir ~/.themes
+cd ~/.themes
+git clone https://github.com/PCTLC157/Themes.git
+cd ~/.themes/Themes
+tar -xf Qogir-dark.tar.xz 
+tar -xf Qogir-win-dark.tar.xz
+mv Qogir-dark ~/.themes
+mv Qogir-win-dark ~/.themes
+clear
+}
+#
+##5:Download Qogir Win Dark & Qogir Dark Themes From Github & Extract into .themes Arch#
+themegita() {
+sudo pacman -S git
+mkdir ~/.themes
+cd ~/.themes
+git clone https://github.com/PCTLC157/Themes.git
+cd ~/.themes/Themes
+tar -xf Qogir-dark.tar.xz 
+tar -xf Qogir-win-dark.tar.xz
+mv Qogir-dark ~/.themes
+mv Qogir-win-dark ~/.themes
+#
+##Download Qogir Win Dark & Qogir Dark Themes From Google Drive & Extract into .theme##
+#wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1zNLJfeMILgC0i6i9AX5tTLAe55-gzZMN' -O Qogir-dark.tar.xz
+#wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1gLpoQkavKmP2taX3oTa4x-RCzLmGU7n2' -O Qogir-win-dark.tar.xz
+clear
+}
+#
+##j:Remove .mozilla Home Folder and Create Link From Data Drive##
+firefox() {
+sudo apt install trash-cli
+trash -r ~/.mozilla
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/.mozilla ~/.mozilla
+clear
+}
+#
+##k:Remove .thunderbird Home Folder and Create Link From Data Drive##
+thunderbird() {
+sudo apt install trash-cli
+trash -r ~/.thunderbird
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/.thunderbird ~/.thunderbird
+clear
+}
+#
+##l:Install Google Chrome Ubuntu Based Systems##
+chromeinstall() {
+sudo apt install wget
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+clear
+}
+#
+##m:Create Google Chrome Link From Data Drive##
+chromelink() {
+sudo apt install trash-cli
+trash -r ~/.config/google-chrome
+ln -s /mnt/7b049159-0e57-4dc8-93ef-a943ae19e3dd/google-chrome ~/.config/google-chrome
+clear
+}
+#
+##n:Install Trizen For AUR Support Arch Linux##
+trizeninstall() {
+git clone https://aur.archlinux.org/trizen.git
+cd trizen
+makepkg -si
+echo "Trizen AUR Support Installed"
+sleep 5
+clear
+}
+#
+##o:Install Google Chrome Arch Linux##
+googlechrome() {
+sudo pacman -Syu
+trizen -S google-chrome
+clear
+echo "Google Chrome Installed"
+sleep 5
+clear
+}
+#
+##p:Install Popsicle USB-Flasher Arch Linux##
+popsicle() {
+trizen -S popsicle-git
+clear
+echo "Popsicle USB-Flasher Installed"
+sleep 5
+clear
+}
+#
+##q:Install Virtualbox Arch Linux (DKMS)##
+virtualbox() {
+sudo pacman -S virtualbox
+sudo pacman -S virtualbox-host-dkms
+sudo pacman -S linux-headers
+clear
+echo "Virtualbox Installed"
+sleep 5
+clear
+}
+#
+##r:Virtualbox USB Support for Host Machine (Your Running System)##
+vboxusb() {
+sudo usermod -a -G vboxusers $USER
+clear
+echo "USB Support Added"
+sleep 5
+clear
+}
+#
+##s:Virtualbox Shared Folder Support Guest Machine##
+vboxsf() {
+sudo groupadd vboxsf $USER
+sudo usermod -a -G vboxsf $USER
+clear
+echo "Shared Folder Support Added"
+sleep 5
+clear
+}
+#
+##t:Install Virtualbox Extension Pack##
+vboxext() {
+cd ~/Downloads
+wget https://download.virtualbox.org/virtualbox/6.1.32/Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack
+sudo VBoxManage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack
+rm Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack
+cd
+clear
+echo "Virtualbox Extension Pack Installed"
+sleep 5
+clear
+}
+#
+##u:Install Youtube-dl and set file Permissions##
+youtubedl() {
+sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+clear
+echo "Youtube-dl Installed and Permissions Set"
+sleep 5
+clear
+}
+#
+##v:Install WebApp Manager from Linux Mint##
+webapp() {
+trizen -S webapp-manager
+clear
+echo "Web App Manager Installed"
+sleep 5
+clear
+}
+#
+##w:Install Free File Sync (AUR)##
+freefilesync() {
+trizen -S freefilesync-bin
+clear
+echo "Free File Sync Installed"
+sleep 5
+clear
+}
+#
+##Needed To Run The Main Menu Function##
+menu

@@ -1,0 +1,246 @@
+#!/bin/bash
+
+##Main Menu Function##
+menu () { while true
+do
+echo "                         PCTLC Admin"
+echo "***************************************************************"
+echo "                   **Update the System First**"
+echo "***************************************************************"
+echo "a: Update Arch Mirrorlist"
+echo "b: Update Arch System" 
+echo "c: Download Icons From Github Ubuntu"
+echo "d: Download Icons From Github Arch"
+echo "e: Download Themes From Github Ubuntu"
+echo "f: Download Themes From Github Arch"
+echo "g: Install Google Chrome (Ubuntu Base)"
+echo "**************************************************************"
+echo "          Trizen Is Already Installed on PCTLC-EZarch"
+echo "**************************************************************"
+echo "h: Install Trizen AUR Support"
+echo "i: Install Google Chrome - (AUR)"
+echo "j: Install Popsicle (USB-Flasher) (AUR) Arch Git"
+echo "k: Install Virtualbox Arch (dkms)"
+echo "l: Virtualbox USB Support (Host Machine)"
+echo "m: Virtualbox Shared Folder Support (Guest Machine)"
+echo "n: Virtualbox Extension Pack Install 6.1.32 (wget)"
+echo "o: Install Youtube-dl (wget)"
+echo "p: Install WebApp Manager AUR (From Linux Mint)"
+echo "x: Exit"
+read -p "Please Enter Your Choice: " number
+##case is inspecting the number selected##Number is a variable##
+case $number in
+	a) runreflector;;
+	b) update;;
+	c) icongit;;
+	d) icongita;;
+	e) themegit;;
+	f) themegita;;
+	g) chromeinstall;;
+	h) trizeninstall;;
+	i) chromeinstalla;;
+	j) popsicle;;
+	k) virtualbox;;
+	l) vboxusb;;
+	m) vboxsf;;
+	n) vboxext;;
+	o) youtubedl;;
+	p) webapp;;
+	x) exit;;
+#
+esac
+done
+}
+#
+##a:Update the Mirrorlist using Reflector##
+runreflector() {
+  clear
+  reflector --latest 10 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+  clear
+  echo -e "\n"
+  echo "Mirrorlist regenerated"
+  sleep 2
+  clear
+}
+#
+##b:Update the Arch System##
+update() {
+sudo pacman -Syu
+echo "System Updated"
+sleep 2
+clear
+}
+#
+#c:Download DamaDamas, Papirus, Wow64 & We10X Icons From Github & Extract into .icons Ubuntu/Debian#
+icongit() {
+sudo apt install git
+mkdir ~/.icons
+cd ~/.icons
+git clone https://github.com/PCTLC157/Icons.git
+cd ~/.icons/Icons
+tar -xf papirus-icon-theme-20210501.tar.xz
+tar -xf We10X-special-main.tar.xz
+tar -xf wow64-icon-theme.tar.xz
+unzip -q DamaDamas-icon-theme-0.7.zip
+mv DamaDamas-icon-theme-0.7 ~/.icons
+mv ePapirus ~/.icons
+mv Papirus ~/.icons
+mv Papirus-Dark ~/.icons
+mv Papirus-Light ~/.icons
+mv We10X-special ~/.icons
+mv We10X-special-dark ~/.icons
+mv wow64 ~/.icons
+mv wow64-Light ~/.icons
+clear
+}
+#
+#d:Download DamaDamas, Papirus, Wow64 & We10X Icons From Github & Extract into .icons Arch#
+icongita() {
+sudo pacman -S git
+mkdir ~/.icons
+cd ~/.icons
+git clone https://github.com/PCTLC157/Icons.git
+cd ~/.icons/Icons
+tar -xf papirus-icon-theme-20210501.tar.xz
+tar -xf We10X-special-main.tar.xz
+tar -xf wow64-icon-theme.tar.xz
+unzip -q DamaDamas-icon-theme-0.7.zip
+mv DamaDamas-icon-theme-0.7 ~/.icons
+mv ePapirus ~/.icons
+mv Papirus ~/.icons
+mv Papirus-Dark ~/.icons
+mv Papirus-Light ~/.icons
+mv We10X-special ~/.icons
+mv We10X-special-dark ~/.icons
+mv wow64 ~/.icons
+mv wow64-Light ~/.icons
+}
+#
+##e:Download Qogir Win Dark & Qogir Dark Themes From Github & Extract into .themes Ubuntu/Debian#
+themegit() {
+sudo apt install git
+mkdir ~/.themes
+cd ~/.themes
+git clone https://github.com/PCTLC157/Themes.git
+cd ~/.themes/Themes
+tar -xf Qogir-dark.tar.xz 
+tar -xf Qogir-win-dark.tar.xz
+mv Qogir-dark ~/.themes
+mv Qogir-win-dark ~/.themes
+clear
+}
+#
+##f:Download Qogir Win Dark & Qogir Dark Themes From Github & Extract into .themes Arch#
+themegita() {
+sudo pacman -S git
+mkdir ~/.themes
+cd ~/.themes
+git clone https://github.com/PCTLC157/Themes.git
+cd ~/.themes/Themes
+tar -xf Qogir-dark.tar.xz 
+tar -xf Qogir-win-dark.tar.xz
+mv Qogir-dark ~/.themes
+mv Qogir-win-dark ~/.themes
+}
+#
+##g:Install Google Chrome Ubuntu Based Systems##
+chromeinstall() {
+sudo apt install wget
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+clear
+}
+#
+##h:Install Trizen For AUR Support Arch Linux##
+trizeninstall() {
+git clone https://aur.archlinux.org/trizen.git
+cd trizen
+makepkg -si
+echo "Trizen AUR Support Installed"
+sleep 5
+clear
+}
+#
+##i:Install Google Chrome Arch Linux##
+chromeinstalla() {
+sudo pacman -Syu
+trizen -S google-chrome
+clear
+echo "Google Chrome Installed"
+sleep 5
+clear
+}
+#
+##j:Install Popsicle USB-Flasher Arch Linux##
+popsicle() {
+trizen -S popsicle-git
+clear
+echo "Popsicle USB-Flasher Installed"
+sleep 5
+clear
+}
+#
+##k:Install Virtualbox Arch Linux (DKMS)##
+virtualbox() {
+sudo pacman -S virtualbox
+sudo pacman -S virtualbox-host-dkms
+sudo pacman -S linux-headers
+clear
+echo "Virtualbox Installed"
+sleep 5
+clear
+}
+#
+##l:Virtualbox USB Support for Host Machine (Your Running System)##
+vboxusb() {
+sudo usermod -a -G vboxusers $USER
+clear
+echo "USB Support Added"
+sleep 5
+clear
+}
+#
+##m:Virtualbox Shared Folder Support Host & Guest Machine##
+vboxsf() {
+sudo groupadd vboxsf $USER
+sudo usermod -a -G vboxsf $USER
+clear
+echo "Shared Folder Support Added"
+sleep 5
+clear
+}
+#
+##n:Virtualbox Extension Pack Install##
+vboxext() {
+cd ~/Downloads
+wget https://download.virtualbox.org/virtualbox/6.1.32/Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack
+sudo VBoxManage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack
+rm Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack
+cd
+clear
+echo "Virtualbox Extension Pack Installed"
+sleep 5
+clear
+}
+#
+##o:Install Youtube-dl and set file Permissions##
+youtubedl() {
+sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+clear
+echo "Youtube-dl Installed and Permissions Set"
+sleep 5
+clear
+}
+#
+##p:Install WebApp Manager from Linux Mint##
+webapp() {
+trizen -S webapp-manager
+clear
+echo "Web App Manager Installed"
+sleep 5
+clear
+}
+#
+##Needed To Run The Main Menu Function##
+menu
