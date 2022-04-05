@@ -87,14 +87,14 @@ plexservar() {
 sudo pacman -Syu
 trizen -S plex-media-server
 clear
-echo "Run n: To Enable Plex Server"
+echo "Run b: To Enable Plex Server"
 sleep 5
 clear
 }
 ##b:Enable Plex Media Server Arch##
 enableplexar() {
 systemctl enable plexmediaserver.service
-echo "Run o: To Start Plex Server"
+echo "Run c: To Start Plex Server"
 sleep 5
 clear
 }
@@ -102,7 +102,7 @@ clear
 ##c:Start Plex Media Server Arch##
 startplexar() {
 systemctl start plexmediaserver.service
-echo "Run p: To Check Plex Server Status"
+echo "Run d: To Check Plex Server Status"
 sleep 5
 clear
 }
@@ -122,7 +122,7 @@ clear
 ##f:Stop Plex Media Server Arch##
 stopplexservar() {
 systemctl stop plexmediaserver.service
-echo "Run p: To Check Plex Server Status"
+echo "Run d: To Check Plex Server Status"
 sleep 5
 clear
 }
@@ -145,7 +145,7 @@ echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sour
 sudo apt update
 sudo apt install plexmediaserver
 clear
-echo "Run p: To Enable Plex Server"
+echo "Run i: To Enable Plex Server"
 sleep 5
 clear
 }
@@ -181,7 +181,7 @@ clear
 ##m:Stop Plex Media Server Debian/Ubuntu##
 stopplexservdu() {
 systemctl stop plexmediaserver
-echo "Run r: To Check Plex Server Status"
+echo "Run k: To Check Plex Server Status"
 sleep 5
 clear
 }
