@@ -1,0 +1,126 @@
+#!/bin/bash
+
+##NVME Drives Intel NUC##
+##nvme1n1p1 Boot Partition##
+##nvme1n1p3 System Partition##
+##After running (h) Update Initramfs choose (i) to exit then choose (x) inthe menu to exit again then type exit again then choose (j)##
+
+##Main Menu Function##
+menu () { while true
+do
+echo "System D NVME Boot Repair NUC"
+echo "a: Make /mnt Dir & Copy File"
+echo "b: Login as Root" 
+echo "c: Mount NVME Partitions To Chroot"
+echo "d: Mount System Processes"
+echo "e: Network Resolv"
+echo "f: Change Root Into Mnt"
+echo "g: ReInstall Linux Headers"
+echo "h: Update InitRamfs EXIT AFTER!"
+echo "i: Exit Root Twice"
+echo "j: Install Boot"
+echo "x: Exit"
+read -p "Please Enter Your Choice: " number
+##case is inspecting the number selected##Number is a variable##
+case $number in
+	a) mkmntcpfile;;
+	b) logroot;;
+	c) mntnvmesysd;;
+	d) mntsysproc;;
+	e) netresolv;;
+        f) chrootmnt;;
+	g) reinstallhead;;
+	h) upramfs;;
+	i) exitroot;;
+	j) installboot;;
+	x) exit;;
+
+esac
+done
+}
+#
+##Make Mnt Directory and Copy File to /root & /mnt##
+mkmntcpfile() {
+mkdir /mnt 
+sudo cp sysd-nvme-boot-repair /root/sysd-nvme-boot-repair 
+sudo cp sysd-nvme-boot-repair /mnt/sysd-nvme-boot-repair
+clear
+}
+#
+##Log In As Root##
+logroot() {
+sudo -i
+clear
+}
+#
+##Mount NVME System and Boot Partitions##
+mntnvmesysd() {
+#mount /dev/nvme1n1p3 /mnt && mount /dev/nvme1n1p1 /mnt/boot/efi
+mount /dev/nvme1n1p3 /mnt 
+mount /dev/nvme1n1p1 /mnt/boot/efi
+clear
+}
+#
+##Mount System Files##
+mntsysproc() {
+#mount --bind /proc /mnt/proc && mount --bind /dev /mnt/dev && mount --bind /sys /mnt/sys && mount --bind /run /mnt/run
+#for i in /dev /dev/pts /proc /sys /run; do sudo mount -B $i /mnt$i; done
+mount --bind /proc /mnt/proc
+mount --bind /dev /mnt/dev
+mount --bind /sys /mnt/sys
+mount --bind /run /mnt/run
+clear
+}
+#
+##Function to Create Links for /mnt/placeUUIDinhere **Used for Other Computers and Virtualbox**##
+netresolv() {
+cp /etc/resolv.conf /mnt/etc
+clear
+}
+#
+##Change Root Into Mnt##
+chrootmnt() {
+chroot /mnt
+clear
+}
+#
+##ReInstall Linux Generic and Linux Generic Headers##
+reinstallhead() {
+apt install --reinstall linux-generic linux-headers-generic
+clear
+}
+#
+#Update InitRamfs#
+upramfs() {
+update-initramfs -c -k all
+}
+#
+#Exit Root VERY IMPORTANT#
+exitroot() {
+exit
+}
+#
+#
+#Install Boot#
+installboot() {
+sudo bootctl --path=/mnt/boot/efi install
+}
+#
+
+##Needed To Run The Main Menu Function##
+menu
+# sudo -i
+# mkdir /mnt
+# mount /dev/nvme1n1p3 /mnt 
+# mount /dev/nvme1n1p1 /mnt/boot/efi
+# mount --bind /proc /mnt/proc
+# mount --bind /dev /mnt/dev
+# mount --bind /sys /mnt/sys
+# mount --bind /run /mnt/run
+# cp /etc/resolv.conf /mnt/etc
+# chroot /mnt
+# apt install --reinstall linux-generic linux-headers-generic
+# update-initramfs -c -k all
+# exit
+# sudo bootctl --path=/mnt/boot/efi install
+# exit
